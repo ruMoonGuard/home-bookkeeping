@@ -8,6 +8,7 @@ import { HistoryPageComponent } from './history-page/history-page.component';
 import { PlanningPageComponent } from './planning-page/planning-page.component';
 import { RecordsPageComponent } from './records-page/records-page.component';
 import { SystemRoutingModule } from './system-routing.module';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SystemRoutingModule } from './system-routing.module';
     BillPageComponent,
     HistoryPageComponent,
     PlanningPageComponent,
-    RecordsPageComponent
+    RecordsPageComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
