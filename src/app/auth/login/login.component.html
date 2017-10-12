@@ -43,9 +43,9 @@
       *ngIf="form.get('password').invalid && form.get('password').touched"
     >
       <span *ngIf="form.get('password')['errors']['required']">Пароль не может быть пустым!</span>
-      <span *ngIf="form.get('password')['errors']['minlength']">
+      <span *ngIf="form.get('password')['errors']['minlength']
+            && form.get('password')['errors']['minlength']['requiredLength']">
         Пароль не может быть короче {{ form.get('password')['errors']['minlength']['requiredLength'] }}.
-        Сейчас {{ form.get('password')['errors']['minlength']['actualLength'] }}
       </span>
     </span>
   </div>

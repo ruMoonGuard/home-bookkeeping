@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { UsersService } from '../../shared/services/users.service';
 import { User } from '../../models/user.model';
@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -29,6 +30,13 @@ export class LoginComponent implements OnInit {
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(6)])
     });
+
+    this.route.queryParams
+      .subscribe((params: Params) => {
+        if (params['nowCanLogin']) {
+          this.showMessage('Вы усешно зарегистрированы! Можете войти.', 'success');
+        }
+      });
   }
 
   public onSubmit(): void {
