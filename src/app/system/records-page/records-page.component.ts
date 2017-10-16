@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Category } from '../../models/category.model';
 
 @Component({
   selector: 'csw-records-page',
@@ -12,4 +13,7 @@ export class RecordsPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  newCategory(category: Category) {
+    // to do
+  }
 }
