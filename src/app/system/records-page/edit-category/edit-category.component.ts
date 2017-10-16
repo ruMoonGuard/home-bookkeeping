@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import { Category } from '../../../models/category.model';
 import { CategoriesService } from '../../shared/services/categories.service';
+import { Message } from '../../../models/message.model';
 
 @Component({
   selector: 'csw-edit-category',
@@ -13,12 +14,15 @@ export class EditCategoryComponent implements OnInit {
   @Input() categories: Category[] = [];
   @Output() onCategoryChanged = new EventEmitter<Category>();
 
+  message: Message;
+
   categoryCurrentId = 1;
   categoryCurrent: Category;
 
   constructor(private categoriesService: CategoriesService) { }
 
   ngOnInit() {
+    this.message = new Message('success', '');
     this.changeCategory();
   }
 
@@ -30,6 +34,10 @@ export class EditCategoryComponent implements OnInit {
     this.categoriesService.updateCategory(updateCategory)
       .subscribe((category: Category) => {
         this.onCategoryChanged.emit(category);
+        this.message.text = 'Категория успешно обновлена!';
+        window.setTimeout(() => {
+          this.message.text = '';
+        }, 5000);
       });
   }
 
