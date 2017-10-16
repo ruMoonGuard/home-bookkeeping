@@ -11,7 +11,15 @@ export class CategoriesService extends BaseAPI {
     super(http);
   }
 
+  getCategories(): Observable<Category[]> {
+    return this.get('categories');
+  }
+
   createCategory(category: Category): Observable<Category> {
     return this.post('categories', category);
+  }
+
+  updateCategory(category: Category): Observable<Category> {
+    return this.put(`categories/${category.id}`, category);
   }
 }
