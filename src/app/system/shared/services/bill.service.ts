@@ -20,4 +20,8 @@ export class BillService extends BaseAPI {
     //   .map((response: Response) => response.json());
     return this.get(`latest?base=${currency}`, 'http://api.fixer.io/');
   }
+
+  updateBill(bill: Bill): Observable<Bill> {
+    return this.put(`bill`, bill);
+  }
 }
