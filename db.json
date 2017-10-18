@@ -8,7 +8,7 @@
     }
   ],
   "bill": {
-    "value": 85000,
+    "value": 75000,
     "currency": "RUB"
   },
   "categories": [
@@ -76,14 +76,6 @@
       "category": 3,
       "amount": 5000,
       "id": 7
-    },
-    {
-      "type": "outcome",
-      "description": "Закупил продуктов на семью",
-      "date": "18.10.17 19:13:17",
-      "category": 2,
-      "amount": 5000,
-      "id": 8
     }
   ]
 }

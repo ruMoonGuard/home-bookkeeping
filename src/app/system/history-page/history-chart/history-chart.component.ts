@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'csw-history-chart',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./history-chart.component.scss']
 })
 export class HistoryChartComponent implements OnInit {
+
+  @Input() data;
 
   constructor() { }
 

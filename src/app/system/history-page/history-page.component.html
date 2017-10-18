@@ -3,9 +3,14 @@
     Страница истории <span class="sparkline bar"></span>
   </h3>
 </div>
+<div *ngIf="!isLoaded">
+  Loading...
+</div>
+<div *ngIf="isLoaded">
+  <csw-history-chart [data]="chartData"></csw-history-chart>
 
-<csw-history-chart></csw-history-chart>
+  <csw-history-events></csw-history-events>
 
-<csw-history-events></csw-history-events>
+  <csw-history-filter></csw-history-filter>
+</div>
 
-<csw-history-filter></csw-history-filter>
