@@ -9,7 +9,7 @@
 <div *ngIf="isLoaded">
   <csw-history-chart [data]="chartData"></csw-history-chart>
 
-  <csw-history-events></csw-history-events>
+  <csw-history-events [categories]="categories" [events]="events"></csw-history-events>
 
   <csw-history-filter></csw-history-filter>
 </div>
