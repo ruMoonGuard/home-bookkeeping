@@ -8,7 +8,7 @@
     }
   ],
   "bill": {
-    "value": 100000,
+    "value": 85000,
     "currency": "RUB"
   },
   "categories": [
@@ -68,6 +68,22 @@
       "date": "10.06.2017 14:01:58",
       "id": 5,
       "description": "Заправка + проход ТО"
+    },
+    {
+      "type": "outcome",
+      "description": "На ремонте",
+      "date": "18.10.17 19:12:19",
+      "category": 3,
+      "amount": 5000,
+      "id": 7
+    },
+    {
+      "type": "outcome",
+      "description": "Закупил продуктов на семью",
+      "date": "18.10.17 19:13:17",
+      "category": 2,
+      "amount": 5000,
+      "id": 8
     }
   ]
 }

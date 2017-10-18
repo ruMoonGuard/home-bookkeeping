@@ -14,4 +14,8 @@ export class EventsService extends BaseAPI {
   addEventChangeMoney(event: EventChangeMoney): Observable<EventChangeMoney> {
     return this.post('events', event);
   }
+
+  getEvents(): Observable<EventChangeMoney[]> {
+    return this.get('events');
+  }
 }
