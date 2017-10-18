@@ -4,6 +4,12 @@
       <h3 class="title">Добавить событие</h3>
     </div>
   </div>
+  <div
+    *ngIf="message.text"
+    class="alert alert-{{ message.type }}"
+  >
+    {{ message.text }}
+  </div>
   <div class="card-block">
     <form #f="ngForm" (submit)="onSubmit(f)">
       <div class="form-group">

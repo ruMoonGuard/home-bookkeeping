@@ -8,6 +8,7 @@ import { EventsService } from '../../shared/services/events.service';
 import { BillService } from '../../shared/services/bill.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Bill } from '../../../models/bill.model';
+import { Message } from '../../../models/message.model';
 
 @Component({
   selector: 'csw-add-event',
@@ -20,6 +21,8 @@ export class AddEventComponent implements OnInit, OnDestroy {
 
   sub1: Subscription;
 
+  message: Message;
+
   typesEvents = [
     { type: 'outcome', label: 'Расход' },
     { type: 'income', label: 'Доход' }
@@ -31,6 +34,7 @@ export class AddEventComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.message = new Message('error', '');
   }
 
   ngOnDestroy() {
@@ -51,6 +55,7 @@ export class AddEventComponent implements OnInit, OnDestroy {
         } else {
           value = bill.value - amount;
           if (value < 0) {
+            this.showMessage(`Вам не хватает ${value * -1}`);
             return;
           }
         }
@@ -63,9 +68,16 @@ export class AddEventComponent implements OnInit, OnDestroy {
               category: 1,
               type: 'outcome'
             });
+            this.showMessage(`Событие успешно добавлено!`, 'success');
           });
       });
-
     console.log(event);
+  }
+
+  showMessage(text: string, type: string = 'danger') {
+    this.message = new Message(type, text);
+    window.setTimeout(() => {
+      this.message.text = '';
+    }, 5000);
   }
 }
