@@ -5,6 +5,7 @@ export class EventChangeMoney {
     public date: string,
     public category: number,
     public amount: number,
-    public id?: number
+    public id?: number,
+    public catName?: string
   ) {}
 }

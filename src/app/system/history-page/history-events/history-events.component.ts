@@ -12,6 +12,10 @@ export class HistoryEventsComponent implements OnInit {
   @Input() categories: Category[] = [];
   @Input() events: EventChangeMoney[] = [];
 
+  searchValue = '';
+  searchPlaceholder = 'Сумма';
+  searchField = 'amount';
+
   constructor() { }
 
   ngOnInit() {
@@ -19,5 +23,18 @@ export class HistoryEventsComponent implements OnInit {
 
   getCategoryName(e: EventChangeMoney): string {
     return this.categories.find(c => c.id === e.category).name;
+  }
+
+  changeCriteria(field: string) {
+    const namesMap = {
+      amount: 'Сумма',
+      date: 'Дата',
+      category: 'Категория',
+      type: 'Тип',
+    };
+
+    this.searchPlaceholder = namesMap[field];
+    this.searchField = field;
+    console.log(this.searchValue);
   }
 }

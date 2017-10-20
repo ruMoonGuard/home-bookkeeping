@@ -31,6 +31,9 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
     ).subscribe((data: [Category[], EventChangeMoney[]]) => {
       this.categories = data[0];
       this.events = data[1];
+      this.events.forEach(e => {
+        e.catName = this.categories.find(c => c.id === e.category).name;
+      });
 
       this.calculateChartData();
 
