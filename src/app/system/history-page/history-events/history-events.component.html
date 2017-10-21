@@ -51,7 +51,7 @@
                 <span class="label {{e.type === 'outcome' ? 'label-danger' : 'label-success'}}" *ngIf="e.type === 'income'">Доход</span>
               </td>
               <td class="text-lg-center">
-                <a [routerLink]="['system/history', e.id]" class="btn btn-primary-outline">Открыть</a>
+                <a [routerLink]="['/system/history', e.id]" class="btn btn-primary-outline">Открыть</a>
               </td>
             </tr>
             </tbody>

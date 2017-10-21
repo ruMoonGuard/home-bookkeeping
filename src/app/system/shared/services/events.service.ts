@@ -18,4 +18,8 @@ export class EventsService extends BaseAPI {
   getEvents(): Observable<EventChangeMoney[]> {
     return this.get('events');
   }
+
+  getEventById(id: number): Observable<EventChangeMoney> {
+    return this.get(`events/${id}`);
+  }
 }
