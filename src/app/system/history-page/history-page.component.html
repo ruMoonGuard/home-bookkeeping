@@ -1,7 +1,12 @@
 <div class="title-block">
-  <h3 class="title">
+  <h3 class="title pull-left">
     Страница истории <span class="sparkline bar"></span>
   </h3>
+  <div class="pull-right">
+    <button class="btn-sm btn btn-primary-outline" (click)="showFilter()">
+      <i class="fa fa-filter"></i>
+    </button>
+  </div>
 </div>
 <div *ngIf="!isLoaded">
   Loading...
@@ -9,8 +14,14 @@
 <div *ngIf="isLoaded">
   <csw-history-chart [data]="chartData"></csw-history-chart>
 
-  <csw-history-events [categories]="categories" [events]="events"></csw-history-events>
+  <csw-history-events [categories]="categories" [events]="eventsFilter"></csw-history-events>
 
-  <csw-history-filter></csw-history-filter>
+  <div *ngIf="isFilterVisible">
+    <csw-history-filter
+      (onFilterApply)="filterApply($event)"
+      (onFilterCancel)="filterCancel()"
+      [categories]="categories"
+    ></csw-history-filter>
+  </div>
 </div>
 
