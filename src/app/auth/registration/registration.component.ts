@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from '../../shared/services/users.service';
 import { User } from '../../models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'csw-registration',
@@ -15,7 +16,15 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private usersService: UsersService,
-    private router: Router) { }
+    private router: Router,
+    private title: Title,
+    private meta: Meta) {
+      title.setTitle('Страница входа');
+      meta.addTags([
+        { name: 'keywords', content: 'регистрация'},
+        { name: 'description', content: 'Страница для регистрации в системе'}
+      ]);
+  }
 
   ngOnInit() {
     this.form = new FormGroup({
