@@ -9,7 +9,7 @@
   </div>
 </div>
 <section class="section">
-  <div *ngIf="!isLoaded" class="row text-center">Loading...</div>
+  <div *ngIf="!isLoaded" class="row text-center"><csw-loader></csw-loader></div>
   <div *ngIf="isLoaded" class="row">
     <csw-bill-card [bill]="bill" [currency]="currency"></csw-bill-card>
     <csw-currency-card [currency]="currency"></csw-currency-card>
