@@ -9,10 +9,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { UsersService } from './shared/services/users.service';
 import { AuthService } from './shared/services/auth.service';
 import { AuthGuard } from './shared/services/auth.guard';
+import { HttpNotFoundComponent } from './components/http-not-found/http-not-found.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HttpNotFoundComponent
   ],
   imports: [
     BrowserModule,
