@@ -12,7 +12,7 @@ export class CategoriesService extends BaseAPI {
   }
 
   getCategories(): Observable<Category[]> {
-    return this.get('categories');
+    return this.get('categories', 'http://localhost:5000/api/');
   }
 
   getCategoryById(id: number): Observable<Category> {
