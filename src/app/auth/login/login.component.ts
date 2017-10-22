@@ -6,11 +6,13 @@ import { UsersService } from '../../shared/services/users.service';
 import { User } from '../../models/user.model';
 import { Message } from '../../models/message.model';
 import { AuthService } from '../../shared/services/auth.service';
+import { fadeStateTrigger } from '../../shared/animations/fade.animation';
 
 @Component({
   selector: 'csw-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations: [fadeStateTrigger]
 })
 export class LoginComponent implements OnInit {
 
