@@ -1,0 +1,10 @@
+C:\Users\Moonguard\RiderProjects\HomeBookkeeping\HomeBookkeeping\bin\Debug\netcoreapp2.0\HomeBookkeeping.deps.json
+C:\Users\Moonguard\RiderProjects\HomeBookkeeping\HomeBookkeeping\bin\Debug\netcoreapp2.0\HomeBookkeeping.runtimeconfig.json
+C:\Users\Moonguard\RiderProjects\HomeBookkeeping\HomeBookkeeping\bin\Debug\netcoreapp2.0\HomeBookkeeping.runtimeconfig.dev.json
+C:\Users\Moonguard\RiderProjects\HomeBookkeeping\HomeBookkeeping\bin\Debug\netcoreapp2.0\HomeBookkeeping.dll
+C:\Users\Moonguard\RiderProjects\HomeBookkeeping\HomeBookkeeping\bin\Debug\netcoreapp2.0\HomeBookkeeping.pdb
+C:\Users\Moonguard\RiderProjects\HomeBookkeeping\HomeBookkeeping\obj\Debug\netcoreapp2.0\HomeBookkeeping.csproj.CoreCompileInputs.cache
+C:\Users\Moonguard\RiderProjects\HomeBookkeeping\HomeBookkeeping\obj\Debug\netcoreapp2.0\HomeBookkeeping.AssemblyInfoInputs.cache
+C:\Users\Moonguard\RiderProjects\HomeBookkeeping\HomeBookkeeping\obj\Debug\netcoreapp2.0\HomeBookkeeping.AssemblyInfo.cs
+C:\Users\Moonguard\RiderProjects\HomeBookkeeping\HomeBookkeeping\obj\Debug\netcoreapp2.0\HomeBookkeeping.dll
+C:\Users\Moonguard\RiderProjects\HomeBookkeeping\HomeBookkeeping\obj\Debug\netcoreapp2.0\HomeBookkeeping.pdb

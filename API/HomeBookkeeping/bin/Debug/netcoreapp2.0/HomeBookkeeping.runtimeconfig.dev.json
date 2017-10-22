@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Moonguard\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Moonguard\\.nuget\\packages"
+    ]
+  }
+}
