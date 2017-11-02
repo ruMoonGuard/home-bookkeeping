@@ -15,9 +15,6 @@ namespace HomeBookkeeping.Services
 
         public BillService(DatabaseContext context) => _context = context;
 
-        public Bill GetBill()
-        {
-            return _context.Bills.First(); //упрощенная форма, что бы не трахать мозг, позже переделать
-        }
+        public Bill GetBill() => _context.Bills.First(); //упрощенная форма, что бы не трахать мозг, позже переделать
     }
 }

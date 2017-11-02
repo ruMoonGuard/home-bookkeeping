@@ -51,7 +51,7 @@ export class PlanningPageComponent implements OnInit, OnDestroy {
   }
 
   getCategoryCost(cat: Category): number {
-    const eventsByCat = this.events.filter(e => e.category === cat.id && e.type === 'outcome');
+    const eventsByCat = this.events.filter(e => e.categoryId === cat.id && e.type === 'outcome');
     return eventsByCat.reduce((total, e) => {
       total += e.amount;
       return total;

@@ -1,8 +1,12 @@
-﻿namespace HomeBookkeeping.Models.Enums
+﻿using System.Runtime.Serialization;
+
+namespace HomeBookkeeping.Models.Enums
 {
   public enum EventType
   {
-    Income = 1,
-    Outcome = 2
+        [EnumMember(Value = "income")]
+        Income = 1,
+        [EnumMember(Value = "outcome")]
+        Outcome = 2
   }
 }

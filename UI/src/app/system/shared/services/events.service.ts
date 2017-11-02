@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 import { EventChangeMoney } from '../../../models/event.model';
 import { BaseNewApi } from '../../../shared/helpers/base-api';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class EventsService extends BaseNewApi {

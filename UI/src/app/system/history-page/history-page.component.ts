@@ -37,7 +37,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
       this.categories = data[0];
       this.events = data[1];
       this.events.forEach(e => {
-        e.catName = this.categories.find(c => c.id === e.category).name;
+        e.catName = this.categories.find(c => c.id === e.categoryId).name;
       });
 
       this.setOridginalEvents();
@@ -64,13 +64,12 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
 
     this.eventsFilter = this.eventsFilter
       .filter(e => filter.types.indexOf(e.type) !== -1)
-      .filter(e => filter.categories.indexOf(e.category.toString()) !== -1)
+      .filter(e => filter.categories.indexOf(e.categoryId.toString()) !== -1)
       .filter(e => {
-        const momentDate = moment(e.date, 'DD.MM.YYYY HH:mm:ss');
+        const momentDate = moment(e.creationDate, 'YYYY-MM-DDTHH:mm:ss');
         return momentDate.isBetween(startPeriod, endPeriod);
       });
 
-    console.log(this.eventsFilter);
     this.calculateChartData();
   }
 
@@ -84,7 +83,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
     this.chartData = [];
 
     this.categories.forEach((cat) => {
-      const eventsCat = this.eventsFilter.filter(e => e.category === cat.id && e.type === 'outcome');
+      const eventsCat = this.eventsFilter.filter(e => e.categoryId === cat.id && e.type === 'outcome');
 
       this.chartData.push({
         value: eventsCat.reduce((total, e) => total += e.amount, 0),

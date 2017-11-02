@@ -21,8 +21,8 @@
               </button>
               <div class="dropdown-menu">
                 <a class="dropdown-item" (click)="changeCriteria('amount')">Сумма</a>
-                <a class="dropdown-item" (click)="changeCriteria('date')">Дата</a>
-                <a class="dropdown-item" (click)="changeCriteria('category')">Категория</a>
+                <a class="dropdown-item" (click)="changeCriteria('creationDate')">Дата</a>
+                <a class="dropdown-item" (click)="changeCriteria('categoryId')">Категория</a>
                 <a class="dropdown-item" (click)="changeCriteria('type')">Тип</a>
               </div>
             </div>
@@ -44,7 +44,7 @@
             <tr *ngFor="let e of events | cswFilter:searchValue:searchField; let idx = index;">
               <th scope="row">{{ idx+1 }}</th>
               <td>{{ e.amount }}</td>
-              <td>{{ e.date | cswMoment:'DD.MM.YYYY HH:mm:ss' }}</td>
+              <td>{{ e.creationDate | cswMoment:'YYYY-MM-DDTHH:mm:ss' }}</td>
               <td> {{ getCategoryName(e) }}</td>
               <td>
                 <span class="label {{e.type === 'outcome' ? 'label-danger' : 'label-success'}}" *ngIf="e.type === 'outcome'">Расход</span>

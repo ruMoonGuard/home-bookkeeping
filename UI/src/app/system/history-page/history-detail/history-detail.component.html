@@ -32,7 +32,7 @@
               <li>Комментарий: <strong>{{ event.description }}</strong></li>
             </ul>
           </div>
-          <div class="card-footer">{{ event.date }}</div>
+          <div class="card-footer">{{ event.creationDate | cswMoment:'YYYY-MM-DDTHH:mm:ss':'DD.MM.YYYY HH:mm:ss' }}</div>
         </div>
       </div>
     </div>

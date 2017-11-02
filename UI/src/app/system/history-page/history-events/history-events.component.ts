@@ -22,7 +22,7 @@ export class HistoryEventsComponent implements OnInit {
   }
 
   getCategoryName(e: EventChangeMoney): string {
-    return this.categories.find(c => c.id === e.category).name;
+    return this.categories.find(c => c.id === e.categoryId).name;
   }
 
   changeCriteria(field: string) {
@@ -35,6 +35,5 @@ export class HistoryEventsComponent implements OnInit {
 
     this.searchPlaceholder = namesMap[field];
     this.searchField = field;
-    console.log(this.searchValue);
   }
 }
