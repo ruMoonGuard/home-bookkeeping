@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { BaseAPI } from '../../../shared/helpers/BaseAPI';
 import { EventChangeMoney } from '../../../models/event.model';
+import { BaseNewApi } from '../../../shared/helpers/base-api';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
-export class EventsService extends BaseAPI {
-  constructor(public http: Http) {
+export class EventsService extends BaseNewApi {
+  constructor(public http: HttpClient) {
     super(http);
   }
 

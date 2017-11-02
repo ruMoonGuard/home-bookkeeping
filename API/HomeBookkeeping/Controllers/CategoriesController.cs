@@ -10,10 +10,7 @@ namespace HomeBookkeeping.Controllers
   {
     private readonly ICategoriesService _categoryService;
 
-    public CategoriesController(ICategoriesService categoryService)
-    {
-      _categoryService = categoryService;
-    }
+    public CategoriesController(ICategoriesService categoryService) => _categoryService = categoryService;
 
     [HttpGet]
     public IEnumerable<Category> Get()
@@ -27,6 +24,7 @@ namespace HomeBookkeeping.Controllers
       return _categoryService.GetCategory(id);
     }
 
+    [HttpPost]
     public bool Post([FromBody] Category category)
     {
       var result = _categoryService.AddCategory(category);

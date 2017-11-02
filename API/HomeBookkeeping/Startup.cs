@@ -36,6 +36,8 @@ namespace HomeBookkeeping
       services.AddMvc();
 
       services.AddScoped<ICategoriesService, CategoriesService>();
+      services.AddScoped<IEventService, EventService>();
+      services.AddScoped<IBillService, BillService>();
     }
 
     public void Configure(IApplicationBuilder app)
