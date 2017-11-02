@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
@@ -21,7 +22,8 @@ import { HttpNotFoundComponent } from './components/http-not-found/http-not-foun
     AuthModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpModule
+    HttpModule,
+    HttpClientModule,
   ],
   providers: [UsersService, AuthService, AuthGuard],
   bootstrap: [AppComponent]

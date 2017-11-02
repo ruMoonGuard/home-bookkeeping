@@ -1761,6 +1761,19 @@
           "lib/netstandard2.0/_._": {}
         }
       },
+      "Microsoft.EntityFrameworkCore.Tools.DotNet/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.App": "2.0.0",
+          "Newtonsoft.Json": "10.0.1"
+        },
+        "compile": {
+          "lib/netcoreapp2.0/dotnet-ef.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/dotnet-ef.dll": {}
+        }
+      },
       "Microsoft.Extensions.Caching.Abstractions/2.0.0": {
         "type": "package",
         "dependencies": {
@@ -6153,6 +6166,22 @@
         "tools/net461/ef.exe.config",
         "tools/net461/ef.x86.exe",
         "tools/net461/ef.x86.exe.config",
+        "tools/netcoreapp2.0/ef.dll",
+        "tools/netcoreapp2.0/ef.runtimeconfig.json"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.Tools.DotNet/2.0.0": {
+      "sha512": "TXfd6BVR0bRpVwEM24fJIpE3q3AiPHHgbeY4nnbXez9T6sJk7OSrsuhPmiF7wLPI7wpZQrpj3avyrcaE1v3yow==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.tools.dotnet/2.0.0",
+      "files": [
+        "lib/netcoreapp2.0/dotnet-ef.dll",
+        "lib/netcoreapp2.0/dotnet-ef.runtimeconfig.json",
+        "microsoft.entityframeworkcore.tools.dotnet.2.0.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.tools.dotnet.nuspec",
+        "prefercliruntime",
+        "tools/net461/ef.exe",
+        "tools/net461/ef.x86.exe",
         "tools/netcoreapp2.0/ef.dll",
         "tools/netcoreapp2.0/ef.runtimeconfig.json"
       ]
@@ -12529,23 +12558,31 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.AspNetCore.All >= 2.0.0",
+      "Microsoft.EntityFrameworkCore.Tools.DotNet >= 2.0.0",
       "Microsoft.NETCore.App >= 2.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Moonguard\\.nuget\\packages\\": {}
+    "C:\\Users\\Yaroslav\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Moonguard\\RiderProjects\\HomeBookkeeping\\HomeBookkeeping\\HomeBookkeeping.csproj",
+      "projectUniqueName": "C:\\AngularProjects\\home-bookkeeping\\API\\HomeBookkeeping\\HomeBookkeeping.csproj",
       "projectName": "HomeBookkeeping",
-      "projectPath": "C:\\Users\\Moonguard\\RiderProjects\\HomeBookkeeping\\HomeBookkeeping\\HomeBookkeeping.csproj",
-      "packagesPath": "C:\\Users\\Moonguard\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Moonguard\\RiderProjects\\HomeBookkeeping\\HomeBookkeeping\\obj\\",
+      "projectPath": "C:\\AngularProjects\\home-bookkeeping\\API\\HomeBookkeeping\\HomeBookkeeping.csproj",
+      "packagesPath": "C:\\Users\\Yaroslav\\.nuget\\packages\\",
+      "outputPath": "C:\\AngularProjects\\home-bookkeeping\\API\\HomeBookkeeping\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Moonguard\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Yaroslav\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12559,14 +12596,24 @@
         "netcoreapp2.0": {
           "projectReferences": {}
         }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
       }
     },
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "Microsoft.NETCore.App": {
+          "Microsoft.EntityFrameworkCore.Tools.DotNet": {
             "target": "Package",
             "version": "2.0.0"
+          },
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "2.0.0",
+            "autoReferenced": true
           },
           "Microsoft.AspNetCore.All": {
             "target": "Package",

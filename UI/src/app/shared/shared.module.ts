@@ -7,6 +7,10 @@ import { LoaderComponent } from './components/loader/loader.component';
 @NgModule({
   declarations: [LoaderComponent],
   imports: [FormsModule, ReactiveFormsModule, NgxChartsModule],
-  exports: [FormsModule, ReactiveFormsModule, NgxChartsModule, LoaderComponent]
+  exports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgxChartsModule,
+    LoaderComponent]
 })
 export class SharedModule {}
