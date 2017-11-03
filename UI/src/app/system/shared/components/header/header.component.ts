@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../../../../models/user.model';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { Router } from '@angular/router';
 
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   date: Date = new Date();
-  user: User;
+  username: string;
 
   constructor(
     private authService: AuthService,
@@ -20,7 +19,7 @@ export class HeaderComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.user = JSON.parse(window.localStorage.getItem('user'));
+    this.username = JSON.parse(window.localStorage.getItem('name'));
   }
 
   onLogout() {

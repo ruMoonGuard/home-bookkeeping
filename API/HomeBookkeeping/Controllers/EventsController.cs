@@ -2,10 +2,12 @@
 using HomeBookkeeping.Models;
 using HomeBookkeeping.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HomeBookkeeping.Controllers
 {
     [Route("api/events")]
+    [Authorize]
     public class EventsController : Controller
     {
         private readonly IEventService _eventService;

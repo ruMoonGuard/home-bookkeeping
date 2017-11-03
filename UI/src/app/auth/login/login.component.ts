@@ -8,6 +8,7 @@ import { User } from '../../models/user.model';
 import { Message } from '../../models/message.model';
 import { AuthService } from '../../shared/services/auth.service';
 import { fadeStateTrigger } from '../../shared/animations/fade.animation';
+import { TokenObject } from '../../models/token-object.model';
 
 @Component({
   selector: 'csw-login',
@@ -53,9 +54,15 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    const formData = this.form.value;
+    const { email, password } = this.form.value;
 
-    this.usersService.getUserByEmail(formData.email)
+    this.usersService.getToken(email, password)
+      .subscribe((token: TokenObject) => {
+        console.log(token);
+        this.authService.login(token);
+        this.router.navigate(['/system', 'bill']);
+      });
+/*    this.usersService.getUserByEmail(formData.email)
       .subscribe((user: User) => {
         if (user) {
           if (user.password === formData.password) {
@@ -68,7 +75,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.showMessage('Неправильный логин!');
         }
-      });
+      });*/
   }
 
   private showMessage(text: string, type: string = 'danger'): void {

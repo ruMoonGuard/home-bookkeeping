@@ -13,6 +13,12 @@ using System.Threading.Tasks;
 
 namespace HomeBookkeeping.Controllers
 {
+    public class ModelX
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
+    [Route("api/token")]
     public class TokenController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -20,13 +26,13 @@ namespace HomeBookkeeping.Controllers
         public TokenController(UserManager<User> userManager) => _userManager = userManager;
 
         [HttpPost, Route("create")]
-        public async Task Create(string username, string password)
+        public async Task Create([FromBody]ModelX model)
         {
-            var identity = GetIdentity(username, password).Result;
+            var identity = GetIdentity(model.Username, model.Password).Result;
 
             if (identity == null)
             {
-                //to do error
+                // TODO : error
             }
 
             var nowTime = DateTime.UtcNow;
@@ -45,8 +51,9 @@ namespace HomeBookkeeping.Controllers
 
             var response = new
             {
-                access_token = encodedJwt,
-                username = identity.Name
+                token = encodedJwt,
+                name = identity.Name,
+                expires = nowTime.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME))
             };
 
             Response.ContentType = "application/json";

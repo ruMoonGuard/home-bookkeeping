@@ -42,7 +42,10 @@ namespace HomeBookkeeping
 
     public void Configure(IApplicationBuilder app)
     {
-      app.UseCors(builder => builder.AllowAnyOrigin());
+      app.UseCors(builder => builder
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowAnyOrigin());
       app.UseMvc();
     }
   }

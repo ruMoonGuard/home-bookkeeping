@@ -1,12 +1,13 @@
-import { User } from '../../models/user.model';
+import { TokenObject } from '../../models/token-object.model';
 
 export class AuthService {
 
   private isAuthenticated = false;
 
-  public login(user: User): void {
+  public login(token: TokenObject): void {
     this.isAuthenticated = true;
-    window.localStorage.setItem('user', JSON.stringify(user));
+    window.localStorage.setItem('token', token.token);
+    window.localStorage.setItem('name', token.name);
   }
 
   public logout(): void {
@@ -16,5 +17,9 @@ export class AuthService {
 
   public isLoggedIn(): boolean {
     return this.isAuthenticated;
+  }
+
+  public getToken(): string {
+    return window.localStorage.getItem('token');
   }
 }

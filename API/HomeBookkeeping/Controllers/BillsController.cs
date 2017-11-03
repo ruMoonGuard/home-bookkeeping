@@ -1,10 +1,12 @@
 ﻿using HomeBookkeeping.Models;
 using HomeBookkeeping.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeBookkeeping.Controllers
 {
     [Route("api/bills")]
+    [Authorize]
     public class BillsController : Controller
     {
         private readonly IBillService _billService;
