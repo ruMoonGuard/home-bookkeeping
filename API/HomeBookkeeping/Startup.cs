@@ -8,8 +8,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -77,14 +80,28 @@ namespace HomeBookkeeping
                 options.Cookie.HttpOnly = true;
             });
 
-            
-
             services.AddCors();
             services.AddMvc();
 
             services.AddScoped<ICategoriesService, CategoriesService>();
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<IBillService, BillService>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "API",
+                    Description = "API Documentation"
+                });
+
+                var bathPath = PlatformServices.Default.Application.ApplicationBasePath;
+                var xmlPath = Path.Combine(bathPath, "API.xml");
+
+                c.IncludeXmlComments(xmlPath);
+                c.OperationFilter<AuthorizationHeaderParameterOperationFilter>();
+            });
         }
 
         public void Configure(IApplicationBuilder app)
@@ -97,6 +114,9 @@ namespace HomeBookkeeping
             app.UseAuthentication();
 
             app.UseMvc();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"); });
         }
     }
 }
