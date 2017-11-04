@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.username = JSON.parse(window.localStorage.getItem('name'));
+    this.username = window.localStorage.getItem('name');
   }
 
   onLogout() {
