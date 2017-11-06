@@ -69,14 +69,17 @@ namespace HomeBookkeeping.Controllers
 
             if (user == null || !await _userManager.CheckPasswordAsync(user, password)) return null;
 
+            var role = _userManager.GetRolesAsync(user).Result;
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Nbf,
-                    new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
-                new Claim(JwtRegisteredClaimNames.Exp,
-                    new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString())
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, role.First())
+                //new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                //new Claim(JwtRegisteredClaimNames.Nbf,
+                //    new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
+                //new Claim(JwtRegisteredClaimNames.Exp,
+                //    new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString())
             };
 
             var claimsIdentity =

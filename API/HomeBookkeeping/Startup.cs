@@ -14,6 +14,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace HomeBookkeeping
@@ -32,53 +33,63 @@ namespace HomeBookkeeping
             services.AddDbContext<DatabaseContext>(options =>
               options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>()
-              .AddEntityFrameworkStores<DatabaseContext>()
-              .AddDefaultTokenProviders();
-
-            services.Configure<IdentityOptions>(options =>
+            services.AddAuthentication(o =>
             {
-                options.Password.RequiredLength = 6;   // минимальная длина
-                options.Password.RequireNonAlphanumeric = true;   // требуются ли не алфавитно-цифровые символы
-                options.Password.RequireLowercase = true; // требуются ли символы в нижнем регистре
-                options.Password.RequireUppercase = true; // требуются ли символы в верхнем регистре
-                options.Password.RequireDigit = true; // требуются ли цифры
+                o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                o.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    // издатель
+                    ValidateIssuer = true,
+                    ValidIssuer = AuthOptions.ISSUER,
+
+                    // потребитель
+                    ValidateAudience = true,
+                    ValidAudience = AuthOptions.AUDIENCE,
+
+                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                    ValidateIssuerSigningKey = true,
+
+                    //ValidateLifetime = true,
+
+                };
             });
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.RequireHttpsMetadata = false;
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        // издатель
-                        ValidateIssuer = true,
-                        ValidIssuer = AuthOptions.ISSUER,
+            //services.AddIdentity<User, IdentityRole>()
+            //  .AddEntityFrameworkStores<DatabaseContext>();
+              //.AddDefaultTokenProviders();
 
-                        // потребитель
-                        ValidateAudience = true,
-                        ValidAudience = AuthOptions.AUDIENCE,
+            //services.Configure<IdentityOptions>(options =>
+            //{
+            //    options.Password.RequiredLength = 6;   // минимальная длина
+            //    options.Password.RequireNonAlphanumeric = true;   // требуются ли не алфавитно-цифровые символы
+            //    options.Password.RequireLowercase = true; // требуются ли символы в нижнем регистре
+            //    options.Password.RequireUppercase = true; // требуются ли символы в верхнем регистре
+            //    options.Password.RequireDigit = true; // требуются ли цифры
+            //    options.ClaimsIdentity.
+            //});
 
-                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                        ValidateIssuerSigningKey = true,
 
-                        ValidateLifetime = true,
-                    };
-                });
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
 
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.Events = new CookieAuthenticationEvents
-                {
-                    OnRedirectToLogin = ctx =>
-                    {
-                        ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                        return Task.FromResult(0);
-                    }
-                };
-                options.Cookie.HttpOnly = true;
-            });
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.Events = new CookieAuthenticationEvents
+            //    {
+            //        OnRedirectToLogin = ctx =>
+            //        {
+            //            ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //            return Task.FromResult(0);
+            //        }
+            //    };
+            //    options.Cookie.HttpOnly = true;
+            //});
 
             services.AddCors();
             services.AddMvc();

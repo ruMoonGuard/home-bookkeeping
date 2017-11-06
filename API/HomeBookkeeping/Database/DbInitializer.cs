@@ -92,9 +92,18 @@ namespace HomeBookkeeping.Database
                 await userManager.AddToRoleAsync(await userManager.FindByNameAsync(username), "Administrator");
             }
 
+            var user = userManager.FindByNameAsync(username).Result;
+
+            var role = userManager.GetRolesAsync(user).Result;
+
+            if (role.Count == 0)
+            {
+                var x = userManager.AddToRoleAsync(user, "Administrator").Result;
+            }
+
             if (!context.Bills.Any())
             {
-                var user = userManager.FindByNameAsync(username).Result;
+                
 
                 context.Bills.Add(new Bill { UserId = user.Id, Currency = Currency.RUB, Value = 100000 });
                 context.SaveChanges();
