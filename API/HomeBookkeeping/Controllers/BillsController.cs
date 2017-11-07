@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HomeBookkeeping.Controllers
 {
     [Route("api/bills")]
-    //[Authorize]
+    [Authorize(AuthenticationSchemes = "JwtBearer")]
     public class BillsController : Controller
     {
         private readonly IBillService _billService;

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace HomeBookkeeping.Controllers
 {
     [Route("api/categories")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "JwtBearer")]
     public class CategoriesController : Controller
     {
         private readonly ICategoriesService _categoryService;

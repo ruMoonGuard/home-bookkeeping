@@ -1,7 +1,6 @@
 ﻿using HomeBookkeeping.Database;
 using HomeBookkeeping.Models;
 using HomeBookkeeping.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -11,11 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
-using System;
 using System.IO;
-using System.Net;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace HomeBookkeeping
 {
@@ -33,13 +28,15 @@ namespace HomeBookkeeping
             services.AddDbContext<DatabaseContext>(options =>
               options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
+            services.Configure<AuthOptions>(_configuration.GetSection("AuthOptions"));
+
             services.AddAuthentication(o =>
             {
                 o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 o.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
                 o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            .AddJwtBearer(options =>
+            .AddJwtBearer("JwtBearer", options =>
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
@@ -47,49 +44,22 @@ namespace HomeBookkeeping
                 {
                     // издатель
                     ValidateIssuer = true,
-                    ValidIssuer = AuthOptions.ISSUER,
+                    ValidIssuer = _configuration["AuthOptions:ISSUER"],
 
                     // потребитель
                     ValidateAudience = true,
-                    ValidAudience = AuthOptions.AUDIENCE,
+                    ValidAudience = _configuration["AuthOptions:AUDIENCE"],
 
-                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(_configuration["AuthOptions:KEY"]),
                     ValidateIssuerSigningKey = true,
 
-                    //ValidateLifetime = true,
-
+                    ValidateLifetime = true,
                 };
             });
 
-            //services.AddIdentity<User, IdentityRole>()
-            //  .AddEntityFrameworkStores<DatabaseContext>();
-              //.AddDefaultTokenProviders();
-
-            //services.Configure<IdentityOptions>(options =>
-            //{
-            //    options.Password.RequiredLength = 6;   // минимальная длина
-            //    options.Password.RequireNonAlphanumeric = true;   // требуются ли не алфавитно-цифровые символы
-            //    options.Password.RequireLowercase = true; // требуются ли символы в нижнем регистре
-            //    options.Password.RequireUppercase = true; // требуются ли символы в верхнем регистре
-            //    options.Password.RequireDigit = true; // требуются ли цифры
-            //    options.ClaimsIdentity.
-            //});
-
-
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
-
-            //services.ConfigureApplicationCookie(options =>
-            //{
-            //    options.Events = new CookieAuthenticationEvents
-            //    {
-            //        OnRedirectToLogin = ctx =>
-            //        {
-            //            ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            //            return Task.FromResult(0);
-            //        }
-            //    };
-            //    options.Cookie.HttpOnly = true;
-            //});
+            services.AddIdentity<User, IdentityRole>()
+              .AddEntityFrameworkStores<DatabaseContext>()
+              .AddDefaultTokenProviders();
 
             services.AddCors();
             services.AddMvc();

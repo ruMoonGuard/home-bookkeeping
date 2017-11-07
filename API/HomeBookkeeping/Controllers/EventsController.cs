@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace HomeBookkeeping.Controllers
 {
     [Route("api/events")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "JwtBearer")]
     public class EventsController : Controller
     {
         private readonly IEventService _eventService;

@@ -1,92 +1,70 @@
 ﻿using HomeBookkeeping.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace HomeBookkeeping.Controllers
 {
-    public class ModelX
+    public class LogoutModel
     {
         public string Username { get; set; }
         public string Password { get; set; }
     }
+
     [Route("api/token")]
     public class TokenController : Controller
     {
         private readonly UserManager<User> _userManager;
+        private readonly IOptions<AuthOptions> _options;
 
-        public TokenController(UserManager<User> userManager) => _userManager = userManager;
-
-        [HttpPost, Route("create")]
-        public async Task Create([FromBody]ModelX model)
+        public TokenController(UserManager<User> userManager, IOptions<AuthOptions> options)
         {
-            var identity = GetIdentity(model.Username, model.Password).Result;
-
-            if (identity == null)
-            {
-                // TODO : error
-            }
-
-            var nowTime = DateTime.UtcNow;
-
-            var token = new JwtSecurityToken(
-                issuer: AuthOptions.ISSUER,
-                audience: AuthOptions.AUDIENCE,
-                notBefore: nowTime,
-                claims: identity.Claims,
-                expires: nowTime.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
-                    SecurityAlgorithms.HmacSha256)
-            );
-
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-            var response = new
-            {
-                token = encodedJwt,
-                name = identity.Name,
-                expires = nowTime.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME))
-            };
-
-            Response.ContentType = "application/json";
-            await Response.WriteAsync(JsonConvert.SerializeObject(response,
-                new JsonSerializerSettings { Formatting = Formatting.Indented }));
+            _userManager = userManager;
+            _options = options;
         }
 
-        private async Task<ClaimsIdentity> GetIdentity(string username, string password)
+        [HttpPost, Route("create")]
+        public IActionResult Create([FromBody]LogoutModel model)
         {
-            var user = await _userManager.FindByNameAsync(username);
+            var user = _userManager.FindByNameAsync(model.Username).Result;
 
-            var users = _userManager.Users.ToList();
+            if (user == null || !_userManager.CheckPasswordAsync(user, model.Password).Result) return StatusCode(400);
 
-            if (user == null || !await _userManager.CheckPasswordAsync(user, password)) return null;
+            var token = GenerationToken(user);
 
-            var role = _userManager.GetRolesAsync(user).Result;
+            return Ok(new { token });
+        }
 
+        private string GenerationToken(User user)
+        {
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, role.First())
-                //new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                //new Claim(JwtRegisteredClaimNames.Nbf,
-                //    new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
-                //new Claim(JwtRegisteredClaimNames.Exp,
-                //    new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            var claimsIdentity =
-                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
+            var key = _options.Value.GetSymmetricSecurityKey();
+            var creds = new SigningCredentials(_options.Value.GetSymmetricSecurityKey(),
+                    SecurityAlgorithms.HmacSha256);
 
-            return claimsIdentity;
+            var date = DateTime.UtcNow;
+
+            var token = new JwtSecurityToken(
+                issuer: _options.Value.ISSUER,
+                audience: _options.Value.AUDIENCE,
+                notBefore: date,
+                claims: claims,
+                expires: date.Add(TimeSpan.FromMinutes(_options.Value.LIFETIME)),
+                signingCredentials: new SigningCredentials(_options.Value.GetSymmetricSecurityKey(),
+                    SecurityAlgorithms.HmacSha256)
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
