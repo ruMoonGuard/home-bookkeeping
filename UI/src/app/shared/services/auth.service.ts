@@ -4,10 +4,11 @@ export class AuthService {
 
   private isAuthenticated = false;
 
+  constructor() {}
+
   public login(token: TokenObject): void {
     this.isAuthenticated = true;
     window.localStorage.setItem('token', token.token);
-    window.localStorage.setItem('name', token.name);
   }
 
   public logout(): void {

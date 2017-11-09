@@ -27,7 +27,7 @@ namespace HomeBookkeeping.Controllers
         }
 
         [HttpPost]
-        public bool Post([FromBody] Category category)
+        public bool Post([FromBody]Category category)
         {
             var result = _categoryService.AddCategory(category);
 

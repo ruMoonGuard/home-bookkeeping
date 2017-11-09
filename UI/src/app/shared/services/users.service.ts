@@ -21,7 +21,19 @@ export class UsersService extends BaseNewApi {
     return this.post('token/create', { username, password });
   }
 
+  getUser(): Observable<User> {
+    return this.get('account');
+  }
+
   createUser(user: User): Observable<User> {
     return this.post('users', user, 'http://localhost:3000/');
+  }
+
+  public setUserInStorage(user: User): void {
+    window.localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  public getUserFromStorage(): User {
+    return JSON.parse(window.localStorage.getItem('user'));
   }
 }

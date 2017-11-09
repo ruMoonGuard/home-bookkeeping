@@ -57,11 +57,23 @@ export class LoginComponent implements OnInit {
     const { email, password } = this.form.value;
 
     this.usersService.getToken(email, password)
-      .subscribe((token: TokenObject) => {
-        console.log(token);
+      .switchMap((token: TokenObject) => {
         this.authService.login(token);
+        return this.usersService.getUser();
+      })
+      .subscribe((user: User) => {
+        this.usersService.setUserInStorage(user);
         this.router.navigate(['/system', 'bill']);
       });
+/*      .subscribe((token: TokenObject) => {
+        console.log(token);
+        this.authService.login(token);
+
+        this.usersService.getUser().subscribe((user: User) => {
+          this.usersService.setUserInStorage(user);
+          this.router.navigate(['/system', 'bill']);
+        });
+      });*/
 /*    this.usersService.getUserByEmail(formData.email)
       .subscribe((user: User) => {
         if (user) {
