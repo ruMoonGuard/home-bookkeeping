@@ -87,6 +87,8 @@ namespace HomeBookkeeping
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseDeveloperExceptionPage();
+
             app.UseCors(builder => builder
                     .AllowAnyHeader()
                     .AllowAnyMethod()
@@ -94,10 +96,10 @@ namespace HomeBookkeeping
 
             app.UseAuthentication();
 
-            app.UseMvc();
-
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"); });
+
+            app.UseMvc();
         }
     }
 }

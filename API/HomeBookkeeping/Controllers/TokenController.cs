@@ -28,7 +28,7 @@ namespace HomeBookkeeping.Controllers
             _options = options;
         }
 
-        [HttpPost, Route("create")]
+        [HttpPost("create")]
         public IActionResult Create([FromBody]LogoutModel model)
         {
             var user = _userManager.FindByNameAsync(model.Username).Result;

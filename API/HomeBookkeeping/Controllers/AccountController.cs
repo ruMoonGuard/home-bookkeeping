@@ -3,9 +3,6 @@ using HomeBookkeeping.Models.API;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -19,6 +16,7 @@ namespace HomeBookkeeping.Controllers
 
         public AccountController(UserManager<User> userManager) => _userManager = userManager;
 
+        [HttpGet]
         public async Task<UserAPI> Get()
         {
             var email = HttpContext.User.FindFirst(ClaimsIdentity.DefaultNameClaimType)?.Value;
